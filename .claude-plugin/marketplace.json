@@ -1,0 +1,16 @@
+{
+  "name": "jev-fast-judgements",
+  "description": "Skill that teaches Claude when and how to use TypeSafe's Jev for fast, cheap, calibrated judgments during investigations.",
+  "owner": {
+    "name": "rukshan99",
+    "url": "https://github.com/rukshan99"
+  },
+  "plugins": [
+    {
+      "name": "jev-fast-judgements",
+      "source": "./",
+      "description": "Offload bulk, bounded judgments to Jev and read back only a compact verdict table.",
+      "version": "0.1.0"
+    }
+  ]
+}

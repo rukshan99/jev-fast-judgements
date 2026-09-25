@@ -1,0 +1,35 @@
+# Build output
+dist/
+build/
+*.skill
+
+# Jev run artifacts (may contain answers about private data)
+jev_results*.jsonl
+*_results.jsonl
+
+# Secrets
+.env
+.env.*
+!.env.example
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

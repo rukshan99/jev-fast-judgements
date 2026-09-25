@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Validate skill and manifests
+        run: python tools/validate.py
+      - name: Byte-compile
+        run: python -m py_compile skills/jev-fast-judgements/scripts/jev.py tools/*.py tests/*.py
+      - name: Run tests (offline mock API, no key needed)
+        run: python -m unittest discover -s tests -v
+      - name: Build skill zip
+        run: python tools/build_skill.py
+      - name: Upload skill zip
+        if: matrix.python-version == '3.13'
+        uses: actions/upload-artifact@v4
+        with:
+          name: jev-fast-judgements-skill
+          path: dist/jev-fast-judgements.zip

@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Check tag matches plugin version
+        run: |
+          VERSION=$(python -c "import json;print(json.load(open('.claude-plugin/plugin.json'))['version'])")
+          if [ "v$VERSION" != "$GITHUB_REF_NAME" ]; then
+            echo "Tag $GITHUB_REF_NAME does not match plugin.json version v$VERSION"; exit 1
+          fi
+      - run: python tools/validate.py
+      - run: python -m unittest discover -s tests -v
+      - run: python tools/build_skill.py
+      - name: Create GitHub release with the skill zip
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/jev-fast-judgements.zip \
+            --title "$GITHUB_REF_NAME" \
+            --notes "Upload jev-fast-judgements.zip in claude.ai or Claude Desktop under Customize > Skills. See CHANGELOG.md for what changed."
