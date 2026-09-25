@@ -10,7 +10,7 @@
       "name": "jev-fast-judgements",
       "source": "./",
       "description": "Offload bulk, bounded judgments to Jev and read back only a compact verdict table.",
-      "version": "0.1.0"
+      "version": "0.1.1"
     }
   ]
 }

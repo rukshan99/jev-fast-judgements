@@ -114,7 +114,10 @@ class JevScriptTests(unittest.TestCase):
             r = self.run_jev("each", "--items", "claims.jsonl", "-q", "q_claim.json",
                              "--sort", "unsupported", base_url=api.base_url)
         self.assertEqual(r.returncode, 0, r.stderr)
-        self.assertEqual(api.requests[0]["state"]["item"], {"claim": rows[0]["claim"], "source": rows[0]["source"]})
+        # Items are sent concurrently, so request order is not deterministic.
+        sent = sorted((req["state"]["item"] for req in api.requests), key=lambda x: x["claim"])
+        expected = sorted(({"claim": x["claim"], "source": x["source"]} for x in rows), key=lambda x: x["claim"])
+        self.assertEqual(sent, expected)
         self.assertLess(r.stdout.index("c1"), r.stdout.index("c2"))
 
     def test_large_files_are_chunked(self):

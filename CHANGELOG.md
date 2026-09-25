@@ -6,6 +6,12 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-25
+
+### Fixed
+- Order-dependent `test_object_items_from_jsonl` that failed intermittently in CI
+  because items are sent to Jev concurrently.
+
 ## [0.1.0] - 2026-09-25
 
 ### Added
@@ -19,5 +25,6 @@ All notable changes to this project are documented here. The format follows
   threshold guidance.
 - Claude Code plugin marketplace manifests, offline test suite, CI and release workflows.
 
-[Unreleased]: https://github.com/rukshan99/jev-fast-judgements/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/rukshan99/jev-fast-judgements/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/rukshan99/jev-fast-judgements/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/rukshan99/jev-fast-judgements/releases/tag/v0.1.0

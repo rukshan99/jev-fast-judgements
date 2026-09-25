@@ -1,7 +1,7 @@
 {
   "name": "jev-fast-judgements",
   "description": "Lets Claude offload bulk yes/no, pick-one and rating judgments (relevance filtering, labeling, claim checking, injection screening) to TypeSafe's Jev System One model during investigations, so bulk text stays out of its context.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "rukshan99",
     "url": "https://github.com/rukshan99"
